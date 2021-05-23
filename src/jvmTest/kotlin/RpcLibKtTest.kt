@@ -6,7 +6,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-class Api1KtTest {
+class RpcLibKtTest {
 
 
     //https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-test/

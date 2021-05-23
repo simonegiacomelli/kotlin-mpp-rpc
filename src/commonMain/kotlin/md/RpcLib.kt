@@ -1,6 +1,5 @@
 package md
 
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -12,17 +11,6 @@ object ApiConf {
 
 interface Request<T : Any>
 
-@Serializable
-class ApiRequest1(val ping: String) : Request<ApiResponse1>
-
-@Serializable
-class ApiResponse1(val pong: String)
-
-@Serializable
-class ApiRequestSum(val a: Int, val b: Int) : Request<ApiResponseSum>
-
-@Serializable
-class ApiResponseSum(val sum: Int)
 
 suspend inline fun <reified Req : Request<Resp>, reified Resp : Any> send(
     request: Req,
