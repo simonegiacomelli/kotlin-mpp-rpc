@@ -86,6 +86,13 @@ class Api1KtTest {
             ).contains("3333")
         )
 
+        assertTrue(
+            handlers.dispatch(
+                ApiRequestSum::class.simpleName ?: error("no class.simpleName"),
+                Json { }.encodeToString(ApiRequestSum(3333, 2222))
+            ).contains("5555")
+        )
+
     }
 
 }
