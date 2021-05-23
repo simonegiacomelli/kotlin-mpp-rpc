@@ -1,0 +1,7 @@
+class KotlinJsServerTest {
+
+}
+
+fun main() {
+
+}

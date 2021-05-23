@@ -13,7 +13,8 @@ class Api1KtTest {
     @Test
     fun test0() = runBlockingTest { // a coroutine with an extra test control
         val request1 = ApiRequest1("ciao")
-        val response = send(request1) {
+        val response = send(request1) { apiName, it ->
+            assertEquals(ApiRequest1::class.simpleName ?: error("no class name"), apiName)
             println(it)
             assertTrue(it.contains("ciao"))
             val re = ApiResponse1("world")

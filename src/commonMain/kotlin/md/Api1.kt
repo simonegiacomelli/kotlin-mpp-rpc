@@ -5,6 +5,11 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
+object ApiConf {
+    fun baseUrl(apiName: String) = "api1/$apiName"
+}
+
+
 interface Request<T : Any>
 
 @Serializable
@@ -16,16 +21,15 @@ class ApiResponse1(val pong: String)
 @Serializable
 class ApiRequestSum(val a: Int, val b: Int) : Request<ApiResponseSum>
 
-
 @Serializable
 class ApiResponseSum(val sum: Int)
 
 suspend inline fun <reified Req : Request<Resp>, reified Resp : Any> send(
     request: Req,
-    dispatcher: suspend (String) -> String
+    dispatcher: suspend (String, String) -> String
 ): Resp {
     val requestJson = Json { }.encodeToString(request)
-    val responseJson = dispatcher(requestJson)
+    val responseJson = dispatcher(Req::class.simpleName ?: error("no class name"), requestJson)
     val response = Json { }.decodeFromString<Resp>(responseJson)
     return response
 }
