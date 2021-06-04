@@ -18,17 +18,15 @@ class LazyExTest {
 
 fun <T> lazyEx(initializer: () -> T): LazyEx<T> = LazyEx(initializer)
 
-class LazyEx<out T>(private var initializer: () -> T) : Lazy<T> {
+class LazyEx<T>(private var initializer: () -> T) : Lazy<T> {
 
-    private var wrap = Wrap()
-    override val value: T get() = wrap.lazy.value
-    override fun isInitialized() = wrap.lazy.isInitialized()
-    override fun toString() = wrap.lazy.toString()
+    private var wrap = lazy(initializer)
+    override val value: T get() = wrap.value
+    override fun isInitialized() = wrap.isInitialized()
+    override fun toString() = wrap.toString()
     fun invalidate() {
-        wrap = Wrap()
-    } // create a new Wrap object
-
-    private inner class Wrap {
-        val lazy = lazy(initializer)
+        wrap = lazy(initializer)
     }
+
+
 }
