@@ -11,6 +11,7 @@ class LazyExTest {
         assertEquals(1, prop)
         target.invalidate()
         assertEquals(2, prop)
+        assertEquals(2, prop)
     }
 
 
