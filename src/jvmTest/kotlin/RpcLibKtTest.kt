@@ -1,7 +1,7 @@
 import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import md.*
+import rpc.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue

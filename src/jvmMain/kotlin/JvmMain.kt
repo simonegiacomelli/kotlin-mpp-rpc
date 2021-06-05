@@ -9,10 +9,10 @@ import io.ktor.server.cio.*
 import io.ktor.server.engine.*
 import io.ktor.util.pipeline.*
 import io.ktor.websocket.*
-import md.ApiConf
-import md.ApiRequestSum
-import md.ApiResponseSum
-import md.ContextHandlers
+import rpc.ApiConf
+import rpc.ApiRequestSum
+import rpc.ApiResponseSum
+import rpc.ContextHandlers
 import java.time.Duration
 import java.util.*
 

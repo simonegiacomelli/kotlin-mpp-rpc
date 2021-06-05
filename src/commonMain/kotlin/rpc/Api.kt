@@ -1,4 +1,4 @@
-package md
+package rpc
 
 import kotlinx.serialization.Serializable
 
