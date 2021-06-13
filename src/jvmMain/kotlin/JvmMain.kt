@@ -21,18 +21,10 @@ fun main() {
     contextHandler.register { req: ApiRequestSum, context ->
         ApiResponseSum(req.a + req.b)
     }
-    embeddedServer(
-        CIO,
-//        watchPaths = listOf("."),
-        port = 8080,
-        module = Application::mymodule,
-    ).apply {
-
-        start(wait = true)
-    }
+    embeddedServer(CIO, port = 8080, module = Application::module).apply { start(wait = true) }
 }
 
-fun Application.mymodule() {
+fun Application.module() {
     install(WebSockets)
     install(CORS) {
         method(HttpMethod.Options)
