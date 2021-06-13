@@ -9,10 +9,7 @@ import io.ktor.server.cio.*
 import io.ktor.server.engine.*
 import io.ktor.util.pipeline.*
 import io.ktor.websocket.*
-import rpc.ApiConf
-import rpc.ApiRequestSum
-import rpc.ApiResponseSum
-import rpc.ContextHandlers
+import rpc.*
 import java.time.Duration
 import java.util.*
 
@@ -76,6 +73,17 @@ fun Application.module() {
                 println("Removing $thisConnection!")
                 connections -= thisConnection
             }
+        }
+
+        webSocket("/ws1") {
+            suspend fun dispatch(apiName: String, request: String): String {
+                send(apiName + "\t" + request)
+                return (incoming.receive() as Frame.Text).readText()
+            }
+
+            val api = Api(::dispatch)
+            val response = api.send(ApiRequestMul(7, 3))
+            println("Browser computed mul=${response.mul}")
         }
     }
 }
