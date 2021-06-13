@@ -13,7 +13,7 @@ plugins {
 group = "pro.jako"
 version = "1.0-SNAPSHOT"
 
-val ktor_version = "1.5.4"
+val ktor_version = "1.6.0"
 repositories {
     jcenter()
     mavenCentral()
