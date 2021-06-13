@@ -21,6 +21,16 @@ suspend inline fun <reified Req : Request<Resp>, reified Resp : Any> send(
     val response = Json { }.decodeFromString<Resp>(responseJson)
     return response
 }
+typealias Dispatcher = suspend (apiName: String, request: String) -> String
+
+class Api(val dispatcher: Dispatcher) {
+    suspend inline fun <reified Req : Request<Resp>, reified Resp : Any> send(
+        request: Req
+    ): Resp {
+        return send(request, dispatcher)
+    }
+}
+
 
 data class SerializerPair(val serializer: (Any) -> String, val deserializer: (String) -> Any)
 

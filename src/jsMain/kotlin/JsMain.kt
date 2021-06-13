@@ -29,7 +29,7 @@ fun main() {
 
 suspend fun testApi() {
     console.log("Using api rpc")
-    val response = Api.send(ApiRequestSum(5, 7))
+    val response = api.send(ApiRequestSum(5, 7))
     console.log("sum is: " + response.sum)
 }
 
