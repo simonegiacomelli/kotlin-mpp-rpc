@@ -6,7 +6,6 @@ import kotlinx.html.div
 import kotlinx.html.dom.append
 import org.w3c.dom.Node
 import rpc.ApiRequestSum
-import rpc.send
 
 fun main() {
     window.onload = { document.body?.sayHello() }
@@ -18,7 +17,7 @@ fun main() {
 }
 
 suspend fun testApi() {
-    val response = send(ApiRequestSum(5, 7), ::dispatcher)
+    val response = Api.send(ApiRequestSum(5, 7))
     console.log(response)
 }
 
