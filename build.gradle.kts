@@ -2,8 +2,8 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinJsCompilerType.IR
 import org.jetbrains.kotlin.gradle.plugin.KotlinJsCompilerType.LEGACY
 
 
-val mdCompiler = System.getProperties().getProperty("mdCompiler").orEmpty() == "IR"
-val jsCompiler = if (mdCompiler) IR else LEGACY
+val mdCompiler = System.getProperties().getProperty("mdCompiler").orEmpty() == "LEGACY"
+val jsCompiler = if (mdCompiler) LEGACY else IR
 
 plugins {
     kotlin("multiplatform") version "1.5.10"
@@ -28,37 +28,6 @@ kotlin {
         withJava()
         testRuns["test"].executionTask.configure {
             useTestNG()
-        }
-        compilations {
-            val main = getByName("main")
-            tasks.register("ctDebug2") {
-                group = "application"
-                doFirst {
-                    println("=".repeat(100))
-                    configurations.getByName("runtimeClasspath").forEach {
-                        println(it.name)
-                    }
-                    println("=".repeat(100))
-                    main.output.classesDirs.forEach {
-                        println(it)
-                    }
-                }
-            }
-            tasks.register<Jar>("buildFatJar2") {
-                group = "application"
-                dependsOn(tasks.assemble) //assemble build
-                manifest {
-                    attributes["Main-Class"] = "JvmMainKt"
-                }
-                doFirst {
-                    from(
-                        configurations.getByName("runtimeClasspath")
-                            .map { if (it.isDirectory) it else zipTree(it) }, main.output.classesDirs
-                    )
-
-                }
-                archiveBaseName.set("${project.name}-fat2")
-            }
         }
     }
     js(jsCompiler) {
