@@ -14,3 +14,10 @@ class ApiRequestSum(val a: Int, val b: Int) : Request<ApiResponseSum>
 
 @Serializable
 class ApiResponseSum(val sum: Int)
+
+@Serializable
+class ApiRequestMul(val a: Int, val b: Int) : Request<ApiResponseMul>
+
+@Serializable
+class ApiResponseMul(val mul: Int)
+
