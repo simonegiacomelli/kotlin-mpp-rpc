@@ -84,6 +84,8 @@ fun Application.module() {
             val api = Api(::dispatch)
             val response = api.send(ApiRequestMul(7, 3))
             println("Browser computed mul=${response.mul}")
+            for (frame in incoming)
+                println("frame=$frame")
         }
     }
 }
